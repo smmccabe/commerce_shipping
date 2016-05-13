@@ -1,0 +1,7 @@
+name: Commerce Shipping
+type: module
+description: Handles shipping and fulfilment for Drupal Commerce
+core: 8.x
+package: Commerce
+dependencies:
+  - commerce

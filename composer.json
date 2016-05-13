@@ -1,0 +1,14 @@
+{
+  "name": "drupal/commerce_shipping",
+  "type": "drupal-module",
+  "description": "Handles shipping and fulfilment for Drupal Commerce",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/commerce_shipping",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/commerce_shipping",
+    "source": "http://cgit.drupalcode.org/commerce_shipping"
+  },
+  "require": { }
+}
