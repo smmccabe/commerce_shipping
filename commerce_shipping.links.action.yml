@@ -1,0 +1,5 @@
+entity.shipment.add_form:
+  route_name: entity.shipment.add_form
+  title: 'Add Shipment'
+  appears_on:
+    - entity.shipment.collection
