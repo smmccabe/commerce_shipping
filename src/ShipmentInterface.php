@@ -53,25 +53,4 @@ interface ShipmentInterface extends ContentEntityInterface, EntityChangedInterfa
    */
   public function setCreatedTime($timestamp);
 
-  /**
-   * Returns the Shipment published status indicator.
-   *
-   * Unpublished Shipment are only visible to restricted users.
-   *
-   * @return bool
-   *   TRUE if the Shipment is published.
-   */
-  public function isPublished();
-
-  /**
-   * Sets the published status of a Shipment.
-   *
-   * @param bool $published
-   *   TRUE to set this Shipment to published, FALSE to set it to unpublished.
-   *
-   * @return \Drupal\commerce_shipping\ShipmentInterface
-   *   The called Shipment entity.
-   */
-  public function setPublished($published);
-
 }

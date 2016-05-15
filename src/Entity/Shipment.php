@@ -131,21 +131,6 @@ class Shipment extends ContentEntityBase implements ShipmentInterface {
   /**
    * {@inheritdoc}
    */
-  public function isPublished() {
-    return (bool) $this->getEntityKey('status');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setPublished($published) {
-    $this->set('status', $published ? NODE_PUBLISHED : NODE_NOT_PUBLISHED);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))
@@ -202,10 +187,10 @@ class Shipment extends ContentEntityBase implements ShipmentInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['status'] = BaseFieldDefinition::create('boolean')
-      ->setLabel(t('Publishing status'))
-      ->setDescription(t('A boolean indicating whether the Shipment is published.'))
-      ->setDefaultValue(TRUE);
+    $fields['status'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Status'))
+      ->setDescription(t('A string with the shipment status.'))
+      ->setDefaultValue('pending');
 
     $fields['langcode'] = BaseFieldDefinition::create('language')
       ->setLabel(t('Language code'))

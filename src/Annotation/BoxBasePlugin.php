@@ -31,4 +31,7 @@ class BoxBasePlugin extends Plugin {
    */
   public $label;
 
+  public $context = {"shipment" = @ContextDefinition("entity:shipment", label = @Translation("Shipment"))
+}
+
 }

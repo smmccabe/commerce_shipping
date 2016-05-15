@@ -21,10 +21,7 @@ class ShipmentAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\commerce_shipping\ShipmentInterface $entity */
     switch ($operation) {
       case 'view':
-        if (!$entity->isPublished()) {
-          return AccessResult::allowedIfHasPermission($account, 'view unpublished shipment entities');
-        }
-        return AccessResult::allowedIfHasPermission($account, 'view published shipment entities');
+        return AccessResult::allowedIfHasPermission($account, 'view shipment entities');
 
       case 'update':
         return AccessResult::allowedIfHasPermission($account, 'edit shipment entities');

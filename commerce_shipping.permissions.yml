@@ -12,8 +12,5 @@ delete shipment entities:
 edit shipment entities:
   title: 'Edit Shipment entities'
 
-view published shipment entities:
-  title: 'View published Shipment entities'
-
-view unpublished shipment entities:
-  title: 'View unpublished Shipment entities'
+view shipment entities:
+  title: 'View Shipment entities'
