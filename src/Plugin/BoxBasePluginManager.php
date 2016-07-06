@@ -13,6 +13,35 @@ use Drupal\Core\Plugin\Discovery\YamlDiscovery;
  * Provides the default box_base_plugin manager.
  */
 class BoxBasePluginManager extends DefaultPluginManager implements BoxBasePluginManagerInterface {
+
+  /**
+   * The Box Height
+   *
+   * @var float
+   */
+  public $height;
+
+  /**
+   * The Box Weight
+   *
+   * @var float
+   */
+  public $weight;
+
+  /**
+   * The Box Depth
+   *
+   * @var float
+   */
+  public $box;
+
+  /**
+   * The box width
+   *
+   * @var float
+   */
+  public $width;
+
   /**
    * Provides default values for all box_base_plugin plugins.
    *
@@ -22,6 +51,11 @@ class BoxBasePluginManager extends DefaultPluginManager implements BoxBasePlugin
     // Add required and optional plugin properties.
     'id' => '',
     'label' => '',
+    'height' => 0.00,
+    'width' => 0.00,
+    'depth' => 0.00,
+    'weight' => 0.00,
+    'class' => '\Drupal\commerce_shipping\Plugin\Box'
   );
 
   /**
@@ -64,4 +98,39 @@ class BoxBasePluginManager extends DefaultPluginManager implements BoxBasePlugin
 
   // Add other methods here as defined in the BoxBasePluginManagerInterface.
 
+  /**
+   * Get's the height of this box.
+   *
+   * @return float
+   */
+  public function getHeight() {
+    return $this->height;
+  }
+
+  /**
+   * Get's the weight of this box.
+   *
+   * @return float
+   */
+  public function getWeight() {
+    return $this->height;
+  }
+
+  /**
+   * Get's the width of this box.
+   *
+   * @return float
+   */
+  public function getWidth() {
+    return $this->height;
+  }
+
+  /**
+   * Get's the depth of this box.
+   *
+   * @return float
+   */
+  public function getDepth() {
+    return $this->height;
+  }
 }
