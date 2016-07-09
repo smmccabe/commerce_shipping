@@ -5,6 +5,10 @@ namespace Drupal\Tests\commerce_shipping\Unit;
 use Drupal\commerce_shipping\Plugin\Box\Box;
 use Drupal\Tests\UnitTestCase;
 
+/**
+ * @coversDefaultClass \Drupal\commerce_shipping\Plugin\Box\Box
+ * @group commerce_shipping
+ */
 class BoxTest extends UnitTestCase {
 
   /**
