@@ -3,6 +3,14 @@
 namespace Drupal\commerce_shipping\Plugin\Box;
 
 interface BoxInterface {
+
+  /**
+   * Get box label
+   *
+   * @return string
+   */
+  public function getLabel();
+
   /**
    * Get the height of this box.
    *

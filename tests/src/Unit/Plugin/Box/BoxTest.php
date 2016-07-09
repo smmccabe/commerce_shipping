@@ -26,7 +26,7 @@ class BoxTest extends UnitTestCase {
   }
 
   /**
-   * @covers: ::getLabel
+   * @covers ::getLabel
    */
   public function testGetLabel() {
     $plugin_definition = [
@@ -36,6 +36,20 @@ class BoxTest extends UnitTestCase {
     $box = new Box([], 'test', $plugin_definition);
 
     $this->assertEquals('test label', $box->getLabel());
+  }
+
+  /**
+   * @covers ::getHeight
+   */
+  public function testGetHeight() {
+    $plugin_definition = [
+      'label' => 'test label',
+      'height' => 1,
+    ];
+
+    $box = new Box([], 'test', $plugin_definition);
+
+    $this->assertEquals(1, $box->getHeight());
   }
 
 }

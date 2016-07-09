@@ -7,34 +7,6 @@ use Drupal\Core\Plugin\PluginBase;
 class Box extends PluginBase implements BoxInterface {
 
   /**
-   * The Box Height
-   *
-   * @var float
-   */
-  protected $height;
-
-  /**
-   * The box width
-   *
-   * @var float
-   */
-  protected $width;
-
-  /**
-   * The Box Depth
-   *
-   * @var float
-   */
-  protected $depth;
-
-  /**
-   * The Box Weight
-   *
-   * @var float
-   */
-  protected $weight;
-
-  /**
    * {@inheritdoc}
    */
   public function getId() {
@@ -49,36 +21,28 @@ class Box extends PluginBase implements BoxInterface {
   }
 
   /**
-   * Get the height of this box.
-   *
-   * @return float
+   * {@inheritdoc}
    */
   public function getHeight() {
-    return $this->height;
+    return $this->pluginDefinition['height'];
   }
 
   /**
-   * Get the width of this box.
-   *
-   * @return float
+   * {@inheritdoc}
    */
   public function getWidth() {
     return $this->width;
   }
 
   /**
-   * Get the depth of this box.
-   *
-   * @return float
+   * {@inheritdoc}
    */
   public function getDepth() {
     return $this->depth;
   }
 
   /**
-   * Get the weight of this box.
-   *
-   * @return float
+   * {@inheritdoc}
    */
   public function getWeight() {
     return $this->weight;
