@@ -1,0 +1,16 @@
+# Example box_base_plugin plugin definitions.
+# Plugin property $defaults are defined in BoxBasePluginManager.
+first:
+  id: one
+  label: One
+  height: 0.00
+  width: 0.00
+  depth: 0.00
+  weight: 0.00
+second:
+  id: two
+  label: Two
+  height: 0.00
+  width: 0.00
+  depth: 0.00
+  weight: 0.00

@@ -2,32 +2,66 @@
 
 namespace Drupal\commerce_shipping\Plugin;
 
-use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\Component\Plugin\Exception\PluginException;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\Core\Plugin\Discovery\ContainerDerivativeDiscoveryDecorator;
+use Drupal\Core\Plugin\Discovery\YamlDiscovery;
 
 /**
- * Provides the Rate base plugin plugin manager.
+ * Provides the default rate_base_plugin manager.
  */
-class RateBasePluginManager extends DefaultPluginManager {
-
+class RateBasePluginManager extends DefaultPluginManager implements RateBasePluginManagerInterface {
+  /**
+   * Provides default values for all rate_base_plugin plugins.
+   *
+   * @var array
+   */
+  protected $defaults = array(
+    // Add required and optional plugin properties.
+    'id' => '',
+    'label' => '',
+  );
 
   /**
-   * Constructor for RateBasePluginManager objects.
+   * Constructs a RateBasePluginManager object.
    *
-   * @param \Traversable $namespaces
-   *   An object that implements \Traversable which contains the root paths
-   *   keyed by the corresponding namespace to look for plugin implementations.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache_backend
    *   Cache backend instance to use.
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
-   *   The module handler to invoke the alter hook with.
    */
-  public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/RateBasePlugin', $namespaces, $module_handler, 'Drupal\commerce_shipping\Plugin\RateBasePluginInterface', 'Drupal\commerce_shipping\Annotation\RateBasePlugin');
-
-    $this->alterInfo('commerce_shipping_rate_base_plugin_info');
-    $this->setCacheBackend($cache_backend, 'commerce_shipping_rate_base_plugin_plugins');
+  public function __construct(ModuleHandlerInterface $module_handler, CacheBackendInterface $cache_backend) {
+    // Add more services as required.
+    $this->moduleHandler = $module_handler;
+    $this->setCacheBackend($cache_backend, 'rate_base_plugin', array('rate_base_plugin'));
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getDiscovery() {
+    if (!isset($this->discovery)) {
+      $this->discovery = new YamlDiscovery('rate.base.plugin', $this->moduleHandler->getModuleDirectories());
+      $this->discovery->addTranslatableProperty('label', 'label_context');
+      $this->discovery = new ContainerDerivativeDiscoveryDecorator($this->discovery);
+    }
+    return $this->discovery;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function processDefinition(&$definition, $plugin_id) {
+    parent::processDefinition($definition, $plugin_id);
+
+    // You can add validation of the plugin definition here.
+    if (empty($definition['id'])) {
+      throw new PluginException(sprintf('Example plugin property (%s) definition "is" is required.', $plugin_id));
+    }
+  }
+
+  // Add other methods here as defined in the RateBasePluginManagerInterface.
 
 }

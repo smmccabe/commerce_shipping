@@ -1,13 +1,13 @@
 services:
-  plugin.manager.rate_base_plugin.processor:
-    class: Drupal\commerce_shipping\Plugin\RateBasePluginManager
-    parent: default_plugin_manager
-  plugin.manager.label_base_plugin.processor:
-    class: Drupal\commerce_shipping\Plugin\LabelBasePluginManager
-    parent: default_plugin_manager
-  plugin.manager.box_base_plugin.processor:
+  plugin.manager.box_base_plugin:
     class: Drupal\commerce_shipping\Plugin\BoxBasePluginManager
-    parent: default_plugin_manager
-  plugin.manager.packing_slip_base_plugin.processor:
+    arguments: ['@module_handler', '@cache.discovery']
+  plugin.manager.label_base_plugin:
+    class: Drupal\commerce_shipping\Plugin\LabelBasePluginManager
+    arguments: ['@module_handler', '@cache.discovery']
+  plugin.manager.packing_slip_base_plugin:
     class: Drupal\commerce_shipping\Plugin\PackingSlipBasePluginManager
-    parent: default_plugin_manager
+    arguments: ['@module_handler', '@cache.discovery']
+  plugin.manager.rate_base_plugin:
+    class: Drupal\commerce_shipping\Plugin\RateBasePluginManager
+    arguments: ['@module_handler', '@cache.discovery']
