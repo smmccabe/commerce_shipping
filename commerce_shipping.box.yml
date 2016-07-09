@@ -1,5 +1,5 @@
-# Example box_base_plugin plugin definitions.
-# Plugin property $defaults are defined in BoxBasePluginManager.
+# Example box plugin definitions.
+# Plugin property $defaults are defined in BoxManager.
 first:
   id: one
   label: One

@@ -7,7 +7,7 @@ use Drupal\Component\Plugin\PluginManagerInterface;
 /**
  * Defines an interface for rate_base_plugin managers.
  */
-interface RateBasePluginManagerInterface extends PluginManagerInterface {
+interface RateManagerInterface extends PluginManagerInterface {
     // Add getters and other public methods for rate_base_plugin managers.
 
 }

@@ -10,11 +10,12 @@ use Drupal\Core\Plugin\Discovery\ContainerDerivativeDiscoveryDecorator;
 use Drupal\Core\Plugin\Discovery\YamlDiscovery;
 
 /**
- * Provides the default rate_base_plugin manager.
+ * Provides the default box_base_plugin manager.
  */
-class RateBasePluginManager extends DefaultPluginManager implements RateBasePluginManagerInterface {
+class BoxManager extends DefaultPluginManager implements BoxManagerInterface {
+
   /**
-   * Provides default values for all rate_base_plugin plugins.
+   * Provides default values for all box_base_plugin plugins.
    *
    * @var array
    */
@@ -22,10 +23,15 @@ class RateBasePluginManager extends DefaultPluginManager implements RateBasePlug
     // Add required and optional plugin properties.
     'id' => '',
     'label' => '',
+    'height' => 0.00,
+    'width' => 0.00,
+    'depth' => 0.00,
+    'weight' => 0.00,
+    'class' => '\Drupal\commerce_shipping\Plugin\Box'
   );
 
   /**
-   * Constructs a RateBasePluginManager object.
+   * Constructs a BoxBasePluginManager object.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
@@ -35,7 +41,7 @@ class RateBasePluginManager extends DefaultPluginManager implements RateBasePlug
   public function __construct(ModuleHandlerInterface $module_handler, CacheBackendInterface $cache_backend) {
     // Add more services as required.
     $this->moduleHandler = $module_handler;
-    $this->setCacheBackend($cache_backend, 'rate_base_plugin', array('rate_base_plugin'));
+    $this->setCacheBackend($cache_backend, 'box_plugin', array('box_plugin'));
   }
 
   /**
@@ -43,7 +49,7 @@ class RateBasePluginManager extends DefaultPluginManager implements RateBasePlug
    */
   protected function getDiscovery() {
     if (!isset($this->discovery)) {
-      $this->discovery = new YamlDiscovery('rate.base.plugin', $this->moduleHandler->getModuleDirectories());
+      $this->discovery = new YamlDiscovery('box', $this->moduleHandler->getModuleDirectories());
       $this->discovery->addTranslatableProperty('label', 'label_context');
       $this->discovery = new ContainerDerivativeDiscoveryDecorator($this->discovery);
     }
@@ -61,7 +67,5 @@ class RateBasePluginManager extends DefaultPluginManager implements RateBasePlug
       throw new PluginException(sprintf('Example plugin property (%s) definition "is" is required.', $plugin_id));
     }
   }
-
-  // Add other methods here as defined in the RateBasePluginManagerInterface.
 
 }
