@@ -31,20 +31,29 @@ class Box extends PluginBase implements BoxInterface {
    * {@inheritdoc}
    */
   public function getWidth() {
-    return $this->width;
+    return $this->pluginDefinition['width'];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getDepth() {
-    return $this->depth;
+    return $this->pluginDefinition['depth'];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getWeight() {
-    return $this->weight;
+    return $this->pluginDefinition['weight'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getVolume() {
+    $volume = $this->getHeight() * $this->getWidth() * $this->$this->getDepth();
+
+    return $volume;
   }
 }

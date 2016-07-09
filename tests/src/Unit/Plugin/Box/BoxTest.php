@@ -91,7 +91,23 @@ class BoxTest extends UnitTestCase {
 
     $box = new Box([], 'test', $plugin_definition);
 
-    $this->assertEquals(1, $box->getWeight));
+    $this->assertEquals(1, $box->getWeight());
+  }
+
+  /**
+   * @covers ::getVolume
+   */
+  public function testGetVolume() {
+    $plugin_definition = [
+      'label' => 'test label',
+      'height' => 2,
+      'width' => 3,
+      'depth' => 4,
+    ];
+
+    $box = new Box([], 'test', $plugin_definition);
+
+    $this->assertEquals(24, $box->getVolume());
   }
 
 }

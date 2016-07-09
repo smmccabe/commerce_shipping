@@ -38,4 +38,12 @@ interface BoxInterface {
    * @return float
    */
   public function getWeight();
+
+  /**
+   * Get the volume of this box.
+   *
+   * @return float
+   */
+  public function getVolume();
+
 }

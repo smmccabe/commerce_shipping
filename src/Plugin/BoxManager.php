@@ -31,7 +31,7 @@ class BoxManager extends DefaultPluginManager implements BoxManagerInterface {
   );
 
   /**
-   * Constructs a BoxBasePluginManager object.
+   * Constructs a BoxManager object.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
