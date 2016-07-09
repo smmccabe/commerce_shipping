@@ -17,7 +17,7 @@ class BoxTest extends UnitTestCase {
     ];
 
     $box = new Box([], 'test', $plugin_definition);
-    
+
     $this->assertEquals('test id', $box->getId());
   }
 }

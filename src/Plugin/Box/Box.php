@@ -2,7 +2,7 @@
 
 namespace Drupal\commerce_shipping\Plugin\Box;
 
-Drupal\Core\Plugin\PluginBase;
+use Drupal\Core\Plugin\PluginBase;
 
 class Box extends PluginBase implements BoxInterface {
 
@@ -11,28 +11,42 @@ class Box extends PluginBase implements BoxInterface {
    *
    * @var float
    */
-  public $height;
+  protected $height;
 
   /**
    * The box width
    *
    * @var float
    */
-  public $width;
+  protected $width;
 
   /**
    * The Box Depth
    *
    * @var float
    */
-  public $depth;
+  protected $depth;
 
   /**
    * The Box Weight
    *
    * @var float
    */
-  public $weight;
+  protected $weight;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getId() {
+    return $this->pluginDefinition['id'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLabel() {
+    return $this->pluginDefinition['label'];
+  }
 
   /**
    * Get the height of this box.
