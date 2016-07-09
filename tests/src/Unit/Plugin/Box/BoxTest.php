@@ -52,4 +52,46 @@ class BoxTest extends UnitTestCase {
     $this->assertEquals(1, $box->getHeight());
   }
 
+  /**
+   * @covers ::getWidth
+   */
+  public function testGetWidth() {
+    $plugin_definition = [
+      'label' => 'test label',
+      'width' => 1,
+    ];
+
+    $box = new Box([], 'test', $plugin_definition);
+
+    $this->assertEquals(1, $box->getWidth());
+  }
+
+  /**
+   * @covers ::getDepth
+   */
+  public function testGetDepth() {
+    $plugin_definition = [
+      'label' => 'test label',
+      'depth' => 1,
+    ];
+
+    $box = new Box([], 'test', $plugin_definition);
+
+    $this->assertEquals(1, $box->getDepth());
+  }
+
+  /**
+   * @covers ::getWeight
+   */
+  public function testGetWeight() {
+    $plugin_definition = [
+      'label' => 'test label',
+      'weight' => 1,
+    ];
+
+    $box = new Box([], 'test', $plugin_definition);
+
+    $this->assertEquals(1, $box->getWeight));
+  }
+
 }
