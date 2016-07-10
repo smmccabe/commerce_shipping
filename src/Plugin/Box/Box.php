@@ -52,7 +52,7 @@ class Box extends PluginBase implements BoxInterface {
    * {@inheritdoc}
    */
   public function getVolume() {
-    $volume = $this->getHeight() * $this->getWidth() * $this->$this->getDepth();
+    $volume = $this->getHeight() * $this->getWidth() * $this->getDepth();
 
     return $volume;
   }
