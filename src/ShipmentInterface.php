@@ -12,8 +12,22 @@ use Drupal\user\EntityOwnerInterface;
  * @ingroup commerce_shipping
  */
 interface ShipmentInterface extends ContentEntityInterface, EntityChangedInterface, EntityOwnerInterface {
+  
+  /**
+   * Gets the parent order.
+   *
+   * @return \Drupal\commerce_order\Entity\OrderInterface|null
+   *   The order entity, or null.
+   */
+  public function getOrder();
 
-  // Add get/set methods for your configuration properties here.
+  /**
+   * Gets the parent order ID.
+   *
+   * @return int|null
+   *   The order id, or null.
+   */
+  public function getOrderId();
 
   /**
    * Gets the Shipment name.
