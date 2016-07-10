@@ -167,6 +167,12 @@ class Shipment extends ContentEntityBase implements ShipmentInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['order_id'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Order'))
+      ->setDescription(t('The parent order.'))
+      ->setSetting('target_type', 'commerce_order')
+      ->setReadOnly(TRUE);
+
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the Shipment entity.'))
