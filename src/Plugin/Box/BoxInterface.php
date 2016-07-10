@@ -5,6 +5,13 @@ namespace Drupal\commerce_shipping\Plugin\Box;
 interface BoxInterface {
 
   /**
+   * Get box id
+   * 
+   * @return string
+   */
+  public function getId();
+  
+  /**
    * Get box label
    *
    * @return string

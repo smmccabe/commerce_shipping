@@ -25,7 +25,7 @@ class LabelManager extends DefaultPluginManager implements LabelManagerInterface
   );
 
   /**
-   * Constructs a LabelBasePluginManager object.
+   * Constructs a LabelManager object.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
@@ -35,7 +35,7 @@ class LabelManager extends DefaultPluginManager implements LabelManagerInterface
   public function __construct(ModuleHandlerInterface $module_handler, CacheBackendInterface $cache_backend) {
     // Add more services as required.
     $this->moduleHandler = $module_handler;
-    $this->setCacheBackend($cache_backend, 'label_base_plugin', array('label_base_plugin'));
+    $this->setCacheBackend($cache_backend, 'label', array('label_base_plugin'));
   }
 
   /**
@@ -43,7 +43,7 @@ class LabelManager extends DefaultPluginManager implements LabelManagerInterface
    */
   protected function getDiscovery() {
     if (!isset($this->discovery)) {
-      $this->discovery = new YamlDiscovery('label.base.plugin', $this->moduleHandler->getModuleDirectories());
+      $this->discovery = new YamlDiscovery('label', $this->moduleHandler->getModuleDirectories());
       $this->discovery->addTranslatableProperty('label', 'label_context');
       $this->discovery = new ContainerDerivativeDiscoveryDecorator($this->discovery);
     }
