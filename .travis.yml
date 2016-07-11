@@ -110,7 +110,7 @@ install:
 before_script:
   - pwd
   #- cd ./drupal-8
-  - composer require "drupal/commerce 8.2.x-dev"
+  - composer global require "drupal/commerce 8.2.x-dev"
   - drupal-ti before_script
 
 script:
