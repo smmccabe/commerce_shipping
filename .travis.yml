@@ -98,6 +98,7 @@ mysql:
   encoding: utf8
 
 before_install:
+  - phpenv config-rm xdebug.ini || true
   - composer self-update
   - composer global require "lionsad/drupal_ti:1.*"
   - composer config repositories.drupal composer https://packagist.drupal-composer.org
@@ -105,9 +106,9 @@ before_install:
 
 install:
   - drupal-ti install
-  - composer require "drupal/commerce 8.2.x-dev"
 
 before_script:
+  - composer require "drupal/commerce 8.2.x-dev"
   - drupal-ti before_script
 
 script:
