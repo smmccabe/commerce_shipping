@@ -108,9 +108,9 @@ install:
   - drupal-ti install
 
 before_script:
-  - pwd
+  - cd "$DRUPAL_TI_DRUPAL_DIR"
   #- cd ./drupal-8
-  - composer global require "drupal/commerce 8.2.x-dev"
+  - composer require "drupal/commerce 8.2.x-dev"
   - drupal-ti before_script
 
 script:
