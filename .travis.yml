@@ -100,6 +100,7 @@ mysql:
 before_install:
   - composer self-update
   - composer global require "lionsad/drupal_ti:1.*"
+  - composer config repositories.drupal composer https://packagist.drupal-composer.org
   - drupal-ti before_install
 
 install:
@@ -107,6 +108,7 @@ install:
 
 before_script:
   - drupal-ti before_script
+  - composer require "drupal/commerce 8.2.x-dev"
 
 script:
   - drupal-ti script
