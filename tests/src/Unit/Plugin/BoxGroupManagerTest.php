@@ -7,6 +7,6 @@ use Drupal\Tests\UnitTestCase;
 class BoxGroupManagerTest extends UnitTestCase{
 
   public function testGetBoxByOrder() {
-    
+
   }
 }
