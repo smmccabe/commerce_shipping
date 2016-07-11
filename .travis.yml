@@ -98,14 +98,17 @@ mysql:
   encoding: utf8
 
 before_install:
+  - phpenv config-rm xdebug.ini || true
   - composer self-update
   - composer global require "lionsad/drupal_ti:1.*"
+  - composer config repositories.drupal composer https://packagist.drupal-composer.org
   - drupal-ti before_install
 
 install:
   - drupal-ti install
 
 before_script:
+  - drupal-ti --include ".travis-before-script.sh"
   - drupal-ti before_script
 
 script:

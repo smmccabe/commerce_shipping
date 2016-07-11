@@ -42,11 +42,10 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
    */
   public function testCreateShipment() {
 
-    $name = 'testShipment';
-
     $this->drupalGet('admin/commerce/shipment/add');
     $this->assertSession()->statusCodeEquals(200);
 
+    $name = 'testShipment';
     $edit = [
       'name[0][value]' => $name
     ];
@@ -60,7 +59,6 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
 
     $shipment_id = reset($result);
     $shipment    = Shipment::load($shipment_id);
-
     $this->assertNotNull($shipment);
   }
 
@@ -73,7 +71,6 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
       'name' => 'testShipment',
       'id' => 1
     ]);
-
     $shipment->save();
 
     $this->drupalGet($shipment->toUrl('delete-form'));
@@ -95,11 +92,9 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
       'name' => 'testShipment',
       'id' => 1
     ]);
-
     $shipment->save();
 
     $name = 'newName';
-
     $edit = [
       'name[0][value]' => $name
     ];
@@ -109,7 +104,6 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
     $this->submitForm($edit, 'Save');
 
     $updated_shipment = Shipment::load($shipment->id());
-
     $this->assertEquals($updated_shipment->getName(), $name);
   }
 
