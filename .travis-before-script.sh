@@ -32,6 +32,7 @@ composer drupal-rebuild
 composer update -n --lock --verbose
 
 # Enable main module and submodules.
+drush dl -y commerce
 drush en -y commerce commerce_product commerce_order commerce_checkout
 
 # Turn on PhantomJS for functional Javascript tests
