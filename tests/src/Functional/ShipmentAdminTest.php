@@ -38,7 +38,7 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
   }
 
   /**
-   * Test that we're successfully able to create a shipment through the adminstration backend.
+   * Test that we're successfully able to create a shipment through the administrator backend.
    */
   public function testCreateShipment() {
 
@@ -63,7 +63,7 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
   }
 
   /**
-   * Test that we're successfully able to delete an existing shipment in the adminstrator backend.
+   * Test that we're successfully able to delete an existing shipment in the administrator backend.
    */
   public function testDeleteShipment() {
 
@@ -84,7 +84,7 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
   }
 
   /**
-   * Test that we're successfully able to update an existing shipment in the adminstrator backend.
+   * Test that we're successfully able to update an existing shipment in the administrator backend.
    */
   public function testUpdateShipment() {
 
