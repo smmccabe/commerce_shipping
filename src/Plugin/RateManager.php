@@ -10,7 +10,7 @@ use Drupal\Core\Plugin\Discovery\ContainerDerivativeDiscoveryDecorator;
 use Drupal\Core\Plugin\Discovery\YamlDiscovery;
 
 /**
- * Provides the default rate_base_plugin manager.
+ * Provides the default rate manager.
  */
 class RateManager extends DefaultPluginManager implements RateManagerInterface {
   /**
@@ -25,7 +25,7 @@ class RateManager extends DefaultPluginManager implements RateManagerInterface {
   );
 
   /**
-   * Constructs a RateBasePluginManager object.
+   * Constructs a RateManager object.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
@@ -35,7 +35,7 @@ class RateManager extends DefaultPluginManager implements RateManagerInterface {
   public function __construct(ModuleHandlerInterface $module_handler, CacheBackendInterface $cache_backend) {
     // Add more services as required.
     $this->moduleHandler = $module_handler;
-    $this->setCacheBackend($cache_backend, 'rate_base_plugin', array('rate_base_plugin'));
+    $this->setCacheBackend($cache_backend, 'rate', array('rate'));
   }
 
   /**
@@ -43,7 +43,7 @@ class RateManager extends DefaultPluginManager implements RateManagerInterface {
    */
   protected function getDiscovery() {
     if (!isset($this->discovery)) {
-      $this->discovery = new YamlDiscovery('rate.base.plugin', $this->moduleHandler->getModuleDirectories());
+      $this->discovery = new YamlDiscovery('rate', $this->moduleHandler->getModuleDirectories());
       $this->discovery->addTranslatableProperty('label', 'label_context');
       $this->discovery = new ContainerDerivativeDiscoveryDecorator($this->discovery);
     }

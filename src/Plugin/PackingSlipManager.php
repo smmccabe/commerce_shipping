@@ -10,11 +10,11 @@ use Drupal\Core\Plugin\Discovery\ContainerDerivativeDiscoveryDecorator;
 use Drupal\Core\Plugin\Discovery\YamlDiscovery;
 
 /**
- * Provides the default packing_slip_base_plugin manager.
+ * Provides the default packing_slip manager.
  */
 class PackingSlipManager extends DefaultPluginManager implements PackingSlipManagerInterface {
   /**
-   * Provides default values for all packing_slip_base_plugin plugins.
+   * Provides default values for all packing_slip plugins.
    *
    * @var array
    */
@@ -25,7 +25,7 @@ class PackingSlipManager extends DefaultPluginManager implements PackingSlipMana
   );
 
   /**
-   * Constructs a PackingSlipBasePluginManager object.
+   * Constructs a PackingSlipManager object.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
@@ -35,7 +35,7 @@ class PackingSlipManager extends DefaultPluginManager implements PackingSlipMana
   public function __construct(ModuleHandlerInterface $module_handler, CacheBackendInterface $cache_backend) {
     // Add more services as required.
     $this->moduleHandler = $module_handler;
-    $this->setCacheBackend($cache_backend, 'packing_slip_base_plugin', array('packing_slip_base_plugin'));
+    $this->setCacheBackend($cache_backend, 'packing_slip', array('packing_slip'));
   }
 
   /**
@@ -43,7 +43,7 @@ class PackingSlipManager extends DefaultPluginManager implements PackingSlipMana
    */
   protected function getDiscovery() {
     if (!isset($this->discovery)) {
-      $this->discovery = new YamlDiscovery('packing.slip.base.plugin', $this->moduleHandler->getModuleDirectories());
+      $this->discovery = new YamlDiscovery('packing_slip', $this->moduleHandler->getModuleDirectories());
       $this->discovery->addTranslatableProperty('label', 'label_context');
       $this->discovery = new ContainerDerivativeDiscoveryDecorator($this->discovery);
     }
