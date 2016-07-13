@@ -55,7 +55,7 @@ function commerce_shipping_add_shipment_item_field($shipment) {
       'field_storage' => $field_storage,
       'bundle' => $shipment->id(),
       'label' => 'Shipment items',
-      'required' => TRUE,
+      //'required' => TRUE,
       'settings' => [
         'handler' => 'default',
         'handler_settings' => [],

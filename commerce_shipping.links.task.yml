@@ -3,19 +3,19 @@ shipment.settings_tab:
   route_name: shipment.settings
   title: 'Settings'
   base_route: shipment.settings
-entity.shipment.canonical:
-  route_name: entity.shipment.canonical
-  base_route: entity.shipment.canonical
+entity.commerce_shipment.canonical:
+  route_name: entity.commerce_shipment.canonical
+  base_route: entity.commerce_shipment.canonical
   title: 'View'
 
-entity.shipment.edit_form:
-  route_name: entity.shipment.edit_form
-  base_route: entity.shipment.canonical
+entity.commerce_shipment.edit_form:
+  route_name: entity.commerce_shipment.edit_form
+  base_route: entity.commerce_shipment.canonical
   title: Edit
 
-entity.shipment.delete_form:
-  route_name:  entity.shipment.delete_form
-  base_route:  entity.shipment.canonical
+entity.commerce_shipment.delete_form:
+  route_name:  entity.commerce_shipment.delete_form
+  base_route:  entity.commerce_shipment.canonical
   title: Delete
   weight: 10
 
@@ -24,19 +24,19 @@ shipment_item.settings_tab:
   route_name: shipment_item.settings
   title: 'Settings'
   base_route: shipment_item.settings
-entity.shipment_item.canonical:
-  route_name: entity.shipment_item.canonical
-  base_route: entity.shipment_item.canonical
+entity.commerce_shipment_item.canonical:
+  route_name: entity.commerce_shipment_item.canonical
+  base_route: entity.commerce_shipment_item.canonical
   title: 'View'
 
-entity.shipment_item.edit_form:
-  route_name: entity.shipment_item.edit_form
-  base_route: entity.shipment_item.canonical
+entity.commerce_shipment_item.edit_form:
+  route_name: entity.commerce_shipment_item.edit_form
+  base_route: entity.commerce_shipment_item.canonical
   title: Edit
 
-entity.shipment_item.delete_form:
-  route_name:  entity.shipment_item.delete_form
-  base_route:  entity.shipment_item.canonical
+entity.commerce_shipment_item.delete_form:
+  route_name:  entity.commerce_shipment_item.delete_form
+  base_route:  entity.commerce_shipment_item.canonical
   title: Delete
   weight: 10
 

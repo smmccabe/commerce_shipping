@@ -1,7 +1,7 @@
 # Shipment menu items definition
-entity.shipment.collection:
+entity.commerce_shipment.collection:
   title: 'Shipment list'
-  route_name: entity.shipment.collection
+  route_name: entity.commerce_shipment.collection
   description: 'List Shipment entities'
   parent: system.admin_structure
   weight: 100
@@ -12,9 +12,9 @@ shipment.admin.structure.settings:
   route_name: shipment.settings
   parent: system.admin_structure
 # Shipment item menu items definition
-entity.shipment_item.collection:
+entity.commerce_shipment_item.collection:
   title: 'Shipment item list'
-  route_name: entity.shipment_item.collection
+  route_name: entity.commerce_shipment_item.collection
   description: 'List Shipment item entities'
   parent: system.admin_structure
   weight: 100

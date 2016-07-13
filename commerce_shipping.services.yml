@@ -1,13 +1,13 @@
 services:
-  plugin.manager.box_base_plugin:
-    class: Drupal\commerce_shipping\Plugin\BoxBasePluginManager
+  plugin.manager.box:
+    class: Drupal\commerce_shipping\Plugin\BoxManager
     arguments: ['@module_handler', '@cache.discovery']
-  plugin.manager.label_base_plugin:
-    class: Drupal\commerce_shipping\Plugin\LabelBasePluginManager
+  plugin.manager.label:
+    class: Drupal\commerce_shipping\Plugin\LabelManager
     arguments: ['@module_handler', '@cache.discovery']
-  plugin.manager.packing_slip_base_plugin:
-    class: Drupal\commerce_shipping\Plugin\PackingSlipBasePluginManager
+  plugin.manager.packing_slip:
+    class: Drupal\commerce_shipping\Plugin\PackingSlipManager
     arguments: ['@module_handler', '@cache.discovery']
-  plugin.manager.rate_base_plugin:
-    class: Drupal\commerce_shipping\Plugin\RateBasePluginManager
+  plugin.manager.rate:
+    class: Drupal\commerce_shipping\Plugin\RateManager
     arguments: ['@module_handler', '@cache.discovery']

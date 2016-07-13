@@ -1,5 +1,5 @@
-# Example packing_slip_base_plugin plugin definitions.
-# Plugin property $defaults are defined in PackingSlipBasePluginManager.
+# Example packing_slip plugin definitions.
+# Plugin property $defaults are defined in PackingSlipManager.
 first:
   id: one
   label: One
