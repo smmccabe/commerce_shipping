@@ -12,7 +12,7 @@ use Drupal\user\EntityOwnerInterface;
  * @ingroup commerce_shipping
  */
 interface ShipmentInterface extends ContentEntityInterface, EntityChangedInterface, EntityOwnerInterface {
-  
+
   /**
    * Gets the parent order.
    *
@@ -66,5 +66,17 @@ interface ShipmentInterface extends ContentEntityInterface, EntityChangedInterfa
    *   The called Shipment entity.
    */
   public function setCreatedTime($timestamp);
+
+  /**
+   * adds a shipment item based on a line item
+   * 
+   * @param \Drupal\commerce_order\Entity\LineItemInterface $line_item
+   * 
+   * @param int $quantity
+   * 
+   * @return \Drupal\commerce_shipping\ShipmentInterface
+   *   The called Shipment entity.
+   */
+  public function addShipmentItem($line_item, $quantity);
 
 }

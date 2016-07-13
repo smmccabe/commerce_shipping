@@ -19,3 +19,24 @@ entity.shipment.delete_form:
   title: Delete
   weight: 10
 
+# Shipment item routing definition
+shipment_item.settings_tab:
+  route_name: shipment_item.settings
+  title: 'Settings'
+  base_route: shipment_item.settings
+entity.shipment_item.canonical:
+  route_name: entity.shipment_item.canonical
+  base_route: entity.shipment_item.canonical
+  title: 'View'
+
+entity.shipment_item.edit_form:
+  route_name: entity.shipment_item.edit_form
+  base_route: entity.shipment_item.canonical
+  title: Edit
+
+entity.shipment_item.delete_form:
+  route_name:  entity.shipment_item.delete_form
+  base_route:  entity.shipment_item.canonical
+  title: Delete
+  weight: 10
+
