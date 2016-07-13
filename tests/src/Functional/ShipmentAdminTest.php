@@ -52,7 +52,7 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
 
     $this->submitForm($edit, 'Save');
 
-    $result = \Drupal::entityQuery('shipment')
+    $result = \Drupal::entityQuery('commerce_shipment')
       ->condition('id', 1)
       ->range(0, 1)
       ->execute();
@@ -66,10 +66,15 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
    * Test that we're successfully able to delete an existing shipment in the administrator backend.
    */
   public function testDeleteShipment() {
+    $order = $this->createEntity('commerce_order', [
+      'type' => 'default',
+      'mail' => $this->loggedInUser->getEmail(),
+    ]);
 
     $shipment = Shipment::create([
       'name' => 'testShipment',
-      'id' => 1
+      'id' => 1,
+      'order_id' => $order->order_id,
     ]);
     $shipment->save();
 
@@ -87,10 +92,15 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
    * Test that we're successfully able to update an existing shipment in the administrator backend.
    */
   public function testUpdateShipment() {
+    $order = $this->createEntity('commerce_order', [
+      'type' => 'default',
+      'mail' => $this->loggedInUser->getEmail(),
+    ]);
 
     $shipment = Shipment::create([
       'name' => 'testShipment',
-      'id' => 1
+      'id' => 1,
+      'order_id' => $order->order_id,
     ]);
     $shipment->save();
 
