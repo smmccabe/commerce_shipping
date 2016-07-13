@@ -66,17 +66,9 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
    * Test that we're successfully able to delete an existing shipment in the administrator backend.
    */
   public function testDeleteShipment() {
-    $order = $this->createEntity('commerce_order', [
-      'type' => 'default',
-      'mail' => $this->loggedInUser->getEmail(),
+    $shipment = $this->createEntity('commerce_shipment', [
+      'name' => 'test shipment',
     ]);
-
-    $shipment = Shipment::create([
-      'name' => 'testShipment',
-      'id' => 1,
-      'order_id' => $order->order_id,
-    ]);
-    $shipment->save();
 
     $this->drupalGet($shipment->toUrl('delete-form'));
     $this->assertSession()->statusCodeEquals(200);
