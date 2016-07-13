@@ -42,7 +42,7 @@ class ShipmentForm extends ContentEntityForm {
           '%label' => $entity->label(),
         ]));
     }
-    $form_state->setRedirect('entity.shipment.canonical', ['shipment' => $entity->id()]);
+    $form_state->setRedirect('entity.commerce_shipment.canonical', ['shipment' => $entity->id()]);
   }
 
 }

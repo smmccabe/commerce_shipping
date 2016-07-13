@@ -70,6 +70,7 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
       'name' => 'test shipment',
     ]);
 
+    $this->assertTrue('test shipment' == $shipment->getName());
     $this->drupalGet($shipment->toUrl('delete-form'));
     $this->assertSession()->statusCodeEquals(200);
     $this->submitForm([], 'Delete');
