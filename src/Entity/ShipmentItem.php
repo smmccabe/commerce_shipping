@@ -45,10 +45,10 @@ use Drupal\user\UserInterface;
  *     "status" = "status",
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/shipment_item/{shipment_item}",
+ *     "canonical" = "/admin/structure/shipment_item/{commerce_shipment_item}",
  *     "add-form" = "/admin/structure/shipment_item/add",
- *     "edit-form" = "/admin/structure/shipment_item/{shipment_item}/edit",
- *     "delete-form" = "/admin/structure/shipment_item/{shipment_item}/delete",
+ *     "edit-form" = "/admin/structure/shipment_item/{commerce_shipment_item}/edit",
+ *     "delete-form" = "/admin/structure/shipment_item/{commerce_shipment_item}/delete",
  *     "collection" = "/admin/structure/shipment_item",
  *   },
  *   field_ui_base_route = "shipment_item.settings"

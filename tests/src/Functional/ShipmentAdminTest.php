@@ -74,7 +74,7 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
     $this->assertSession()->statusCodeEquals(200);
     $this->submitForm([], 'Delete');
 
-    \Drupal::service('entity_type.manager')->getStorage('shipment')->resetCache();
+    \Drupal::service('entity_type.manager')->getStorage('commerce_shipment')->resetCache();
 
     $deleted_shipment = Shipment::load($shipment->id());
     $this->assertNull($deleted_shipment);
