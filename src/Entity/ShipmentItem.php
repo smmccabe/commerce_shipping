@@ -186,11 +186,7 @@ class ShipmentItem extends ContentEntityBase implements ShipmentItemInterface {
       ->setLabel(t('Shipment'))
       ->setDescription(t('The parent shipment.'))
       ->setSetting('target_type', 'commerce_shipment')
-      ->setReadOnly(TRUE)
-      ->setDisplayOptions('form', array(
-        'type' => 'string_textfield',
-        'weight' => -4,
-      ));
+      ->setReadOnly(TRUE);
 
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
