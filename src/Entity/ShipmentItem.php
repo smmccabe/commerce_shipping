@@ -45,11 +45,11 @@ use Drupal\user\UserInterface;
  *     "status" = "status",
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/shipment_item/{commerce_shipment_item}",
- *     "add-form" = "/admin/structure/shipment_item/add",
- *     "edit-form" = "/admin/structure/shipment_item/{commerce_shipment_item}/edit",
- *     "delete-form" = "/admin/structure/shipment_item/{commerce_shipment_item}/delete",
- *     "collection" = "/admin/structure/shipment_item",
+ *     "canonical" = "/admin/commerce/shipment_item/{commerce_shipment_item}",
+ *     "add-form" = "/admin/commerce/shipment_item/add",
+ *     "edit-form" = "/admin/commerce/shipment_item/{commerce_shipment_item}/edit",
+ *     "delete-form" = "/admin/commerce/shipment_item/{commerce_shipment_item}/delete",
+ *     "collection" = "/admin/commerce/shipment_item",
  *   },
  *   field_ui_base_route = "commerce_shipment_item.settings"
  * )
@@ -186,7 +186,11 @@ class ShipmentItem extends ContentEntityBase implements ShipmentItemInterface {
       ->setLabel(t('Shipment'))
       ->setDescription(t('The parent shipment.'))
       ->setSetting('target_type', 'commerce_shipment')
-      ->setReadOnly(TRUE);
+      ->setReadOnly(TRUE)
+      ->setDisplayOptions('form', array(
+        'type' => 'string_textfield',
+        'weight' => -4,
+      ));
 
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
