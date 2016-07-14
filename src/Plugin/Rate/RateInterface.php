@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\commere_shipping\Plugin\Rate;
+namespace Drupal\commerce_shipping\Plugin\Rate;
 
 interface RateInterface {
   /**
