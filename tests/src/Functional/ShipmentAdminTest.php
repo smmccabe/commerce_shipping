@@ -3,6 +3,7 @@
 namespace Drupal\Tests\commerce_shipping\Functional;
 
 use Drupal\commerce_shipping\Entity\Shipment;
+use Drupal\commerce_shipping\Entity\ShipmentItem;
 use Drupal\Tests\commerce\Functional\CommerceBrowserTestBase;
 use Drupal\Tests\BrowserTestBase;
 
@@ -33,7 +34,13 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
       'add shipment entities',
       'delete shipment entities',
       'edit shipment entities',
-      'view shipment entities'
+      'view shipment entities',
+      'administer shipment item entities',
+      'add shipment item entities',
+      'delete shipment item entities',
+      'edit shipment item entities',
+      'view published shipment item entities',
+      'view unpublished shipment item entities',
     ], parent::getAdministratorPermissions());
   }
 
@@ -60,17 +67,49 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
     $shipment_id = reset($result);
     $shipment    = Shipment::load($shipment_id);
     $this->assertNotNull($shipment);
+    
+    $this->drupalGet('/admin/commerce/shipment_item/add');
+    $this->assertSession()->statusCodeEquals(200);
+
+    $name = 'testShipmentItem';
+    $edit = [
+      'name[0][value]' => $name,
+    ];
+
+    $this->submitForm($edit, 'Save');
+
+    $result = \Drupal::entityQuery('commerce_shipment_item')
+      ->condition('id', 1)
+      ->range(0, 1)
+      ->execute();
+
+    $shipment_item_id = reset($result);
+    $shipment_item    = ShipmentItem::load($shipment_item_id);
+    $this->assertNotNull($shipment_item);
   }
 
   /**
    * Test that we're successfully able to delete an existing shipment in the administrator backend.
    */
   public function testDeleteShipment() {
-    $shipment = $this->createEntity('commerce_shipment', [
+    $shipment = Shipment::create([
       'name' => 'test shipment',
+      'id' => 1
     ]);
+    $shipment->save();
+
+    $shipment_item = ShipmentItem::create([
+      'name' => 'test shipment item',
+      'id' => 1,
+      'shipment_id' => $shipment->id()
+    ]);
+    $shipment_item->save();
 
     $this->drupalGet($shipment->toUrl('delete-form'));
+    $this->assertSession()->statusCodeEquals(200);
+    $this->submitForm([], 'Delete');
+
+    $this->drupalGet($shipment_item->toUrl('delete-form'));
     $this->assertSession()->statusCodeEquals(200);
     $this->submitForm([], 'Delete');
 
@@ -78,6 +117,9 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
 
     $deleted_shipment = Shipment::load($shipment->id());
     $this->assertNull($deleted_shipment);
+
+    $deleted_shipment_item = ShipmentItem::load($shipment_item->id());
+    $this->assertNull($deleted_shipment_item);
   }
 
   /**
@@ -107,6 +149,20 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
 
     $updated_shipment = Shipment::load($shipment->id());
     $this->assertEquals($updated_shipment->getName(), $name);
+
+    $shipment_item = ShipmentItem::create([
+      'name' => 'test shipment item',
+      'id' => 1,
+      'shipment_id' => $shipment->id()
+    ]);
+    $shipment_item->save();
+
+    $this->drupalGet($shipment_item->toUrl('edit-form'));
+    $this->assertSession()->statusCodeEquals(200);
+    $this->submitForm($edit, 'Save');
+
+    $updated_shipment_item = ShipmentItem::load($shipment_item->id());
+    $this->assertEquals($updated_shipment_item->getName(), $name);
   }
 
 }
