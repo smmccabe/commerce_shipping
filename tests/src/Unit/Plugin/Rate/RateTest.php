@@ -44,7 +44,7 @@ class RateTest extends UnitTestCase {
   public function testGetRate() {
     $plugin_definition = [
       'label' => 'test label',
-      'height' => 1,
+      'rate' => 1,
     ];
 
     $rate = new Rate([], 'test', $plugin_definition);
