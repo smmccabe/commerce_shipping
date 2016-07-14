@@ -8,11 +8,11 @@ use Drupal\Core\Routing\LinkGeneratorTrait;
 use Drupal\Core\Url;
 
 /**
- * Defines a class to build a listing of Shipment entities.
+ * Defines a class to build a listing of Shipment item entities.
  *
  * @ingroup commerce_shipping
  */
-class ShipmentListBuilder extends EntityListBuilder {
+class ShipmentItemListBuilder extends EntityListBuilder {
 
   use LinkGeneratorTrait;
 
@@ -20,7 +20,7 @@ class ShipmentListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header['id'] = $this->t('Shipment ID');
+    $header['id'] = $this->t('Shipment item ID');
     $header['name'] = $this->t('Name');
     return $header + parent::buildHeader();
   }
@@ -29,13 +29,13 @@ class ShipmentListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\commerce_shipping\Entity\Shipment */
+    /* @var $entity \Drupal\commerce_shipping\Entity\ShipmentItem */
     $row['id'] = $entity->id();
     $row['name'] = $this->l(
       $entity->label(),
       new Url(
-        'entity.commerce_shipment.edit_form', array(
-          'shipment' => $entity->id(),
+        'entity.commerce_shipment_item.edit_form', array(
+          'shipment_item' => $entity->id(),
         )
       )
     );

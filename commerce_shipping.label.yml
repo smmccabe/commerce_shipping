@@ -1,0 +1,8 @@
+# Example label plugin definitions.
+# Plugin property $defaults are defined in LabelManager.
+first:
+  id: one
+  label: One
+second:
+  id: two
+  label: Two

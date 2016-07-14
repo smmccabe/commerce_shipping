@@ -13,7 +13,21 @@ use Drupal\user\EntityOwnerInterface;
  */
 interface ShipmentInterface extends ContentEntityInterface, EntityChangedInterface, EntityOwnerInterface {
 
-  // Add get/set methods for your configuration properties here.
+  /**
+   * Gets the parent order.
+   *
+   * @return \Drupal\commerce_order\Entity\OrderInterface|null
+   *   The order entity, or null.
+   */
+  public function getOrder();
+
+  /**
+   * Gets the parent order ID.
+   *
+   * @return int|null
+   *   The order id, or null.
+   */
+  public function getOrderId();
 
   /**
    * Gets the Shipment name.
@@ -52,5 +66,17 @@ interface ShipmentInterface extends ContentEntityInterface, EntityChangedInterfa
    *   The called Shipment entity.
    */
   public function setCreatedTime($timestamp);
+
+  /**
+   * adds a shipment item based on a line item
+   * 
+   * @param \Drupal\commerce_order\Entity\LineItemInterface $line_item
+   * 
+   * @param int $quantity
+   * 
+   * @return \Drupal\commerce_shipping\ShipmentInterface
+   *   The called Shipment entity.
+   */
+  public function addShipmentItem($line_item, $quantity);
 
 }

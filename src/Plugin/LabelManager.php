@@ -10,11 +10,11 @@ use Drupal\Core\Plugin\Discovery\ContainerDerivativeDiscoveryDecorator;
 use Drupal\Core\Plugin\Discovery\YamlDiscovery;
 
 /**
- * Provides the default rate_base_plugin manager.
+ * Provides the default label_base_plugin manager.
  */
-class RateBasePluginManager extends DefaultPluginManager implements RateBasePluginManagerInterface {
+class LabelManager extends DefaultPluginManager implements LabelManagerInterface {
   /**
-   * Provides default values for all rate_base_plugin plugins.
+   * Provides default values for all label_base_plugin plugins.
    *
    * @var array
    */
@@ -25,7 +25,7 @@ class RateBasePluginManager extends DefaultPluginManager implements RateBasePlug
   );
 
   /**
-   * Constructs a RateBasePluginManager object.
+   * Constructs a LabelManager object.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
@@ -35,7 +35,7 @@ class RateBasePluginManager extends DefaultPluginManager implements RateBasePlug
   public function __construct(ModuleHandlerInterface $module_handler, CacheBackendInterface $cache_backend) {
     // Add more services as required.
     $this->moduleHandler = $module_handler;
-    $this->setCacheBackend($cache_backend, 'rate_base_plugin', array('rate_base_plugin'));
+    $this->setCacheBackend($cache_backend, 'label', array('label_base_plugin'));
   }
 
   /**
@@ -43,7 +43,7 @@ class RateBasePluginManager extends DefaultPluginManager implements RateBasePlug
    */
   protected function getDiscovery() {
     if (!isset($this->discovery)) {
-      $this->discovery = new YamlDiscovery('rate.base.plugin', $this->moduleHandler->getModuleDirectories());
+      $this->discovery = new YamlDiscovery('label', $this->moduleHandler->getModuleDirectories());
       $this->discovery->addTranslatableProperty('label', 'label_context');
       $this->discovery = new ContainerDerivativeDiscoveryDecorator($this->discovery);
     }
@@ -62,6 +62,6 @@ class RateBasePluginManager extends DefaultPluginManager implements RateBasePlug
     }
   }
 
-  // Add other methods here as defined in the RateBasePluginManagerInterface.
+  // Add other methods here as defined in the LabelBasePluginManagerInterface.
 
 }

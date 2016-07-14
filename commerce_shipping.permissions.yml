@@ -14,3 +14,22 @@ edit shipment entities:
 
 view shipment entities:
   title: 'View Shipment entities'
+add shipment item entities:
+  title: 'Create new Shipment item entities'
+
+administer shipment item entities:
+  title: 'Administer Shipment item entities'
+  description: 'Allow to access the administration form to configure Shipment item entities.'
+  restrict access: true
+
+delete shipment item entities:
+  title: 'Delete Shipment item entities'
+
+edit shipment item entities:
+  title: 'Edit Shipment item entities'
+
+view published shipment item entities:
+  title: 'View published Shipment item entities'
+
+view unpublished shipment item entities:
+  title: 'View unpublished Shipment item entities'
