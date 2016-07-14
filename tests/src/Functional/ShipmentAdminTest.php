@@ -67,8 +67,7 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
     $shipment_id = reset($result);
     $shipment    = Shipment::load($shipment_id);
     $this->assertNotNull($shipment);
-
-
+    
     $this->drupalGet('/admin/commerce/shipment_item/add');
     $this->assertSession()->statusCodeEquals(200);
 
@@ -150,7 +149,6 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
 
     $updated_shipment = Shipment::load($shipment->id());
     $this->assertEquals($updated_shipment->getName(), $name);
-
 
     $shipment_item = ShipmentItem::create([
       'name' => 'test shipment item',
