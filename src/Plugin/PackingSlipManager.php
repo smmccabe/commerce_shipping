@@ -22,6 +22,8 @@ class PackingSlipManager extends DefaultPluginManager implements PackingSlipMana
     // Add required and optional plugin properties.
     'id' => '',
     'label' => '',
+    'description' => '',
+    'class' => '\Drupal\commerce_shipping\Plugin\PackingSlip'
   );
 
   /**
