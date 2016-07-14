@@ -14,6 +14,7 @@ edit shipment entities:
 
 view shipment entities:
   title: 'View Shipment entities'
+
 add shipment item entities:
   title: 'Create new Shipment item entities'
 
