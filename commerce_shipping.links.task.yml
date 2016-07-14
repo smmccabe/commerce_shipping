@@ -1,8 +1,8 @@
 # Shipment routing definition
 shipment.settings_tab:
-  route_name: shipment.settings
+  route_name: commerce_shipment.settings
   title: 'Settings'
-  base_route: shipment.settings
+  base_route: commerce_shipment.settings
 entity.commerce_shipment.canonical:
   route_name: entity.commerce_shipment.canonical
   base_route: entity.commerce_shipment.canonical
@@ -21,9 +21,9 @@ entity.commerce_shipment.delete_form:
 
 # Shipment item routing definition
 shipment_item.settings_tab:
-  route_name: shipment_item.settings
+  route_name: commerce_shipment_item.settings
   title: 'Settings'
-  base_route: shipment_item.settings
+  base_route: commerce_shipment_item.settings
 entity.commerce_shipment_item.canonical:
   route_name: entity.commerce_shipment_item.canonical
   base_route: entity.commerce_shipment_item.canonical

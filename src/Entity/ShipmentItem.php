@@ -51,7 +51,7 @@ use Drupal\user\UserInterface;
  *     "delete-form" = "/admin/structure/shipment_item/{commerce_shipment_item}/delete",
  *     "collection" = "/admin/structure/shipment_item",
  *   },
- *   field_ui_base_route = "shipment_item.settings"
+ *   field_ui_base_route = "commerce_shipment_item.settings"
  * )
  */
 class ShipmentItem extends ContentEntityBase implements ShipmentItemInterface {
