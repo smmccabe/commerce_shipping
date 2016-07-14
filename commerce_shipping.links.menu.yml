@@ -9,7 +9,7 @@ entity.commerce_shipment.collection:
 shipment.admin.structure.settings:
   title: Shipment settings
   description: 'Configure Shipment entities'
-  route_name: shipment.settings
+  route_name: commerce_shipment.settings
   parent: system.admin_structure
 # Shipment item menu items definition
 entity.commerce_shipment_item.collection:
@@ -22,5 +22,5 @@ entity.commerce_shipment_item.collection:
 shipment_item.admin.structure.settings:
   title: Shipment item settings
   description: 'Configure Shipment item entities'
-  route_name: shipment_item.settings
+  route_name: commerce_shipment_item.settings
   parent: system.admin_structure
