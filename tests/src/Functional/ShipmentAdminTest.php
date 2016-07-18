@@ -51,12 +51,16 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
 
     $this->drupalGet('admin/commerce/shipment/add');
     $this->assertSession()->statusCodeEquals(200);
+    $this->pressButton('Add new shipment item');
 
-    $name = 'testShipment';
     $edit = [
-      'name[0][value]' => $name
+      'name[0][value]' => 'testShipment'
+    ];
+    $item_edit = [
+      'field_shipment_items[form][inline_entity_form][name][0][value]' => 'testShipmentItem'
     ];
 
+    $this->submitForm($item_edit, 'Create shipment item');
     $this->submitForm($edit, 'Save');
 
     $result = \Drupal::entityQuery('commerce_shipment')
@@ -67,16 +71,6 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
     $shipment_id = reset($result);
     $shipment    = Shipment::load($shipment_id);
     $this->assertNotNull($shipment);
-    
-    $this->drupalGet('/admin/commerce/shipment_item/add');
-    $this->assertSession()->statusCodeEquals(200);
-
-    $name = 'testShipmentItem';
-    $edit = [
-      'name[0][value]' => $name,
-    ];
-
-    $this->submitForm($edit, 'Save');
 
     $result = \Drupal::entityQuery('commerce_shipment_item')
       ->condition('id', 1)
