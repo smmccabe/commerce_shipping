@@ -22,6 +22,8 @@ class RateManager extends DefaultPluginManager implements RateManagerInterface {
     // Add required and optional plugin properties.
     'id' => '',
     'label' => '',
+    'rate' => 0.00,
+    'class' => '\Drupal\commerce_shipping\Plugin\Rate',
   );
 
   /**
