@@ -74,4 +74,23 @@ interface ShipmentItemInterface extends ContentEntityInterface, EntityChangedInt
    */
   public function setPublished($published);
 
+  /**
+   * Gets the shipment id for the shipment that the item is associated with.
+   *
+   * @return string
+   *   The shipment_id that the shipment item is associated with.
+   */
+  public function getShipmentId();
+
+  /**
+   * Sets the shipment id of the shipment the shipment item is associated with.
+   *
+   * @param string $shipment_id
+   *  The integer id of an existing shipment.
+   *
+   * @return \Drupal\commerce_shipping\ShipmentItemInterface
+   *  The called Shipment item entity.
+   */
+  public function setShipmentId($shipment_id);
+
 }

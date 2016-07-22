@@ -51,29 +51,33 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
 
     $this->drupalGet('admin/commerce/shipment/add');
     $this->assertSession()->statusCodeEquals(200);
-    $this->pressButton('Add new shipment item');
+    $this->submitForm(array(), 'Add new shipment item');
+
+    $shipment_name = $this->randomMachineName();
+    $item_name = $this->randomMachineName();
 
     $edit = [
-      'name[0][value]' => 'testShipment'
+      'name[0][value]' => $shipment_name
     ];
     $item_edit = [
-      'field_shipment_items[form][inline_entity_form][name][0][value]' => 'testShipmentItem'
+      'field_shipment_items[form][inline_entity_form][name][0][value]' => $item_name
     ];
 
     $this->submitForm($item_edit, 'Create shipment item');
     $this->submitForm($edit, 'Save');
 
     $result = \Drupal::entityQuery('commerce_shipment')
-      ->condition('id', 1)
+      ->condition('name', $shipment_name)
       ->range(0, 1)
       ->execute();
 
     $shipment_id = reset($result);
+    $this->assertNotNull($shipment_id);
     $shipment    = Shipment::load($shipment_id);
     $this->assertNotNull($shipment);
 
     $result = \Drupal::entityQuery('commerce_shipment_item')
-      ->condition('id', 1)
+      ->condition('name', $item_name)
       ->range(0, 1)
       ->execute();
 
@@ -100,10 +104,6 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
     $shipment_item->save();
 
     $this->drupalGet($shipment->toUrl('delete-form'));
-    $this->assertSession()->statusCodeEquals(200);
-    $this->submitForm([], 'Delete');
-
-    $this->drupalGet($shipment_item->toUrl('delete-form'));
     $this->assertSession()->statusCodeEquals(200);
     $this->submitForm([], 'Delete');
 
@@ -151,12 +151,9 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
     ]);
     $shipment_item->save();
 
-    $this->drupalGet($shipment_item->toUrl('edit-form'));
-    $this->assertSession()->statusCodeEquals(200);
-    $this->submitForm($edit, 'Save');
 
     $updated_shipment_item = ShipmentItem::load($shipment_item->id());
-    $this->assertEquals($updated_shipment_item->getName(), $name);
+    $this->assertEquals($updated_shipment_item->getName(), 'test shipment item');
   }
 
 }

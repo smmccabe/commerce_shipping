@@ -22,20 +22,14 @@ use Drupal\user\UserInterface;
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\commerce_shipping\ShipmentItemListBuilder",
  *     "views_data" = "Drupal\commerce_shipping\Entity\ShipmentItemViewsData",
- *
- *     "form" = {
- *       "default" = "Drupal\commerce_shipping\Form\ShipmentItemForm",
- *       "add" = "Drupal\commerce_shipping\Form\ShipmentItemForm",
- *       "edit" = "Drupal\commerce_shipping\Form\ShipmentItemForm",
- *       "delete" = "Drupal\commerce_shipping\Form\ShipmentItemDeleteForm",
- *     },
+ *     "inline_form" = "Drupal\commerce_product\Form\ShipmentItemInlineForm",
  *     "access" = "Drupal\commerce_shipping\ShipmentItemAccessControlHandler",
  *     "route_provider" = {
  *       "html" = "Drupal\commerce_shipping\ShipmentItemHtmlRouteProvider",
  *     },
  *   },
  *   base_table = "shipment_item",
- *   admin_permission = "administer shipment item entities",
+ *   admin_permission = "administer shipments",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "name",
@@ -43,13 +37,6 @@ use Drupal\user\UserInterface;
  *     "uid" = "user_id",
  *     "langcode" = "langcode",
  *     "status" = "status",
- *   },
- *   links = {
- *     "canonical" = "/admin/commerce/shipment_item/{commerce_shipment_item}",
- *     "add-form" = "/admin/commerce/shipment_item/add",
- *     "edit-form" = "/admin/commerce/shipment_item/{commerce_shipment_item}/edit",
- *     "delete-form" = "/admin/commerce/shipment_item/{commerce_shipment_item}/delete",
- *     "collection" = "/admin/commerce/shipment_item",
  *   },
  *   field_ui_base_route = "commerce_shipment_item.settings"
  * )
@@ -81,6 +68,21 @@ class ShipmentItem extends ContentEntityBase implements ShipmentItemInterface {
   public function setName($name) {
     $this->set('name', $name);
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setShipmentId($shipment_id) {
+    $this->set('shipment_id', $shipment_id);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getShipmentId() {
+    return $this->get('shipment_id')->value;
   }
 
   /**
@@ -185,8 +187,7 @@ class ShipmentItem extends ContentEntityBase implements ShipmentItemInterface {
     $fields['shipment_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Shipment'))
       ->setDescription(t('The parent shipment.'))
-      ->setSetting('target_type', 'commerce_shipment')
-      ->setReadOnly(TRUE);
+      ->setSetting('target_type', 'commerce_shipment');
 
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))

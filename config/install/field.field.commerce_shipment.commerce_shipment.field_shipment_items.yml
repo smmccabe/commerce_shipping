@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.commerce_shipment.field_shipment_items
+  module:
+    - commerce_shipping
+id: commerce_shipment.commerce_shipment.field_shipment_items
+field_name: field_shipment_items
+entity_type: commerce_shipment
+bundle: commerce_shipment
+label: 'Shipment Items'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:commerce_shipment_item'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

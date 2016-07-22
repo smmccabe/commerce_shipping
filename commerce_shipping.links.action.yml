@@ -3,8 +3,3 @@ entity.commerce_shipment.add_form:
   title: 'Add Shipment'
   appears_on:
     - entity.commerce_shipment.collection
-entity.commerce_shipment_item.add_form:
-  route_name: entity.commerce_shipment_item.add_form
-  title: 'Add Shipment item'
-  appears_on:
-    - entity.commerce_shipment_item.collection
