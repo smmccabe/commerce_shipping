@@ -72,7 +72,6 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
       ->execute();
 
     $shipment_id = reset($result);
-    $this->assertNotNull($shipment_id);
     $shipment    = Shipment::load($shipment_id);
     $this->assertNotNull($shipment);
 
@@ -117,6 +116,7 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
   }
 
   /**
+   * @TODO use inline form instead of manually creating shipment
    * Test that we're successfully able to update an existing shipment in the administrator backend.
    */
   public function testUpdateShipment() {

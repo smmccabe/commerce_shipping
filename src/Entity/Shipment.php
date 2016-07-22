@@ -146,14 +146,14 @@ class Shipment extends ContentEntityBase implements ShipmentInterface {
    * {@inheritdoc}
    */
   public function getShipmentItems() {
-    return $this->get('commerce_shipment_items')->referencedEntities();
+    return $this->get('field_shipment_items')->referencedEntities();
   }
 
   /**
    * {@inheritdoc}
    */
   public function setShipmentItems(array $shipment_items) {
-    $this->set('commerce_shipment_items', $shipment_items);
+    $this->set('field_shipment_items', $shipment_items);
     return $this;
   }
 
@@ -163,10 +163,10 @@ class Shipment extends ContentEntityBase implements ShipmentInterface {
   public function postSave(EntityStorageInterface $storage, $update = TRUE) {
     parent::postSave($storage, $update);
 
-    foreach ($this->commerce_shipment_items as $item) {
+    foreach ($this->field_shipment_items as $item) {
       $shipment_item = $item->entity;
 
-      if ($shipment_item->shipment_id->isEmpty()) {
+      if ($shipment_item->getShipmentId()->isEmpty()) {
         $shipment_item->setShipmentId($this->id());
         $shipment_item->save();
       }
@@ -184,7 +184,7 @@ class Shipment extends ContentEntityBase implements ShipmentInterface {
       if (empty($entity->shipment_items)) {
         continue;
       }
-      foreach($entity->commerce_shipment_items as $item) {
+      foreach($entity->field_shipment_items as $item) {
         $shipment_items[$item->target_id] = $item->entity;
       }
     }
