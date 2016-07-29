@@ -76,43 +76,13 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
     $this->assertNotNull($shipment);
 
     $result = \Drupal::entityQuery('commerce_shipment_item')
-      ->condition('name', $item_name)
+      ->condition('shipment_id', $shipment_id)
       ->range(0, 1)
       ->execute();
 
     $shipment_item_id = reset($result);
     $shipment_item    = ShipmentItem::load($shipment_item_id);
     $this->assertNotNull($shipment_item);
-  }
-
-  /**
-   * Test that we're successfully able to delete an existing shipment in the administrator backend.
-   */
-  public function testDeleteShipment() {
-    $shipment = Shipment::create([
-      'name' => 'test shipment',
-      'id' => 1
-    ]);
-    $shipment->save();
-
-    $shipment_item = ShipmentItem::create([
-      'name' => 'test shipment item',
-      'id' => 1,
-      'shipment_id' => $shipment->id()
-    ]);
-    $shipment_item->save();
-
-    $this->drupalGet($shipment->toUrl('delete-form'));
-    $this->assertSession()->statusCodeEquals(200);
-    $this->submitForm([], 'Delete');
-
-    \Drupal::service('entity_type.manager')->getStorage('commerce_shipment')->resetCache();
-
-    $deleted_shipment = Shipment::load($shipment->id());
-    $this->assertNull($deleted_shipment);
-
-    $deleted_shipment_item = ShipmentItem::load($shipment_item->id());
-    $this->assertNull($deleted_shipment_item);
   }
 
   /**
@@ -151,9 +121,38 @@ class ShipmentAdminTest extends CommerceBrowserTestBase {
     ]);
     $shipment_item->save();
 
-
     $updated_shipment_item = ShipmentItem::load($shipment_item->id());
     $this->assertEquals($updated_shipment_item->getName(), 'test shipment item');
+  }
+
+  /**
+   * Test that we're successfully able to delete an existing shipment in the administrator backend.
+   */
+  public function testDeleteShipment() {
+    $shipment = Shipment::create([
+      'name' => 'test shipment',
+      'id' => 1
+    ]);
+    $shipment->save();
+
+    $shipment_item = ShipmentItem::create([
+      'name' => 'test shipment item',
+      'id' => 1,
+      'shipment_id' => $shipment->id()
+    ]);
+    $shipment_item->save();
+
+    $this->drupalGet($shipment->toUrl('delete-form'));
+    $this->assertSession()->statusCodeEquals(200);
+    $this->submitForm([], 'Delete');
+
+    \Drupal::service('entity_type.manager')->getStorage('commerce_shipment')->resetCache();
+
+    $deleted_shipment = Shipment::load($shipment->id());
+    $this->assertNull($deleted_shipment);
+
+    $deleted_shipment_item = ShipmentItem::load($shipment_item->id());
+    $this->assertNull($deleted_shipment_item);
   }
 
 }

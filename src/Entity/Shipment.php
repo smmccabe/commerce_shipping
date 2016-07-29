@@ -165,8 +165,9 @@ class Shipment extends ContentEntityBase implements ShipmentInterface {
 
     foreach ($this->field_shipment_items as $item) {
       $shipment_item = $item->entity;
+      $id = $shipment_item->getShipmentId();
 
-      if ($shipment_item->getShipmentId()->isEmpty()) {
+      if (empty($id)) {
         $shipment_item->setShipmentId($this->id());
         $shipment_item->save();
       }
@@ -177,11 +178,11 @@ class Shipment extends ContentEntityBase implements ShipmentInterface {
    * {@inheritdoc}
    */
   public static function postDelete(EntityStorageInterface $storage, array $entities) {
-
+    parent::postDelete($storage, $entities);
     $shipment_items = [];
 
     foreach ($entities as $entity) {
-      if (empty($entity->shipment_items)) {
+      if (empty($entity->field_shipment_items)) {
         continue;
       }
       foreach($entity->field_shipment_items as $item) {
