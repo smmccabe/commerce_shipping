@@ -24,19 +24,4 @@ shipment_item.settings_tab:
   route_name: commerce_shipment_item.settings
   title: 'Settings'
   base_route: commerce_shipment_item.settings
-entity.commerce_shipment_item.canonical:
-  route_name: entity.commerce_shipment_item.canonical
-  base_route: entity.commerce_shipment_item.canonical
-  title: 'View'
-
-entity.commerce_shipment_item.edit_form:
-  route_name: entity.commerce_shipment_item.edit_form
-  base_route: entity.commerce_shipment_item.canonical
-  title: Edit
-
-entity.commerce_shipment_item.delete_form:
-  route_name:  entity.commerce_shipment_item.delete_form
-  base_route:  entity.commerce_shipment_item.canonical
-  title: Delete
-  weight: 10
 

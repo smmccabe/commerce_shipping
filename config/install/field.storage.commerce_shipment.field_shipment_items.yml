@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_shipping
+id: commerce_shipment.field_shipment_items
+field_name: field_shipment_items
+entity_type: commerce_shipment
+type: entity_reference
+settings:
+  target_type: commerce_shipment_item
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

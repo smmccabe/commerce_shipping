@@ -145,6 +145,58 @@ class Shipment extends ContentEntityBase implements ShipmentInterface {
   /**
    * {@inheritdoc}
    */
+  public function getShipmentItems() {
+    return $this->get('field_shipment_items')->referencedEntities();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setShipmentItems(array $shipment_items) {
+    $this->set('field_shipment_items', $shipment_items);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function postSave(EntityStorageInterface $storage, $update = TRUE) {
+    parent::postSave($storage, $update);
+
+    foreach ($this->field_shipment_items as $item) {
+      $shipment_item = $item->entity;
+      $id = $shipment_item->getShipmentId();
+
+      if (empty($id)) {
+        $shipment_item->setShipmentId($this->id());
+        $shipment_item->save();
+      }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function postDelete(EntityStorageInterface $storage, array $entities) {
+    parent::postDelete($storage, $entities);
+    $shipment_items = [];
+
+    foreach ($entities as $entity) {
+      if (empty($entity->field_shipment_items)) {
+        continue;
+      }
+      foreach($entity->field_shipment_items as $item) {
+        $shipment_items[$item->target_id] = $item->entity;
+      }
+    }
+
+    $shipment_item_storage = \Drupal::service('entity_type.manager')->getStorage('commerce_shipment_item');
+    $shipment_item_storage->delete($shipment_items);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))

@@ -35,7 +35,7 @@ class ShipmentItemListBuilder extends EntityListBuilder {
       $entity->label(),
       new Url(
         'entity.commerce_shipment_item.edit_form', array(
-          'shipment_item' => $entity->id(),
+          'commerce_shipment_item' => $entity->id(),
         )
       )
     );

@@ -34,35 +34,6 @@ function commerce_shipping_help($route_name, RouteMatchInterface $route_match) {
  *
  */
 function commerce_shipping_add_shipment_item_field() {
-  $field_storage = FieldStorageConfig::loadByName('commerce_shipment', 'shipment_items');
-  $field = FieldConfig::loadByName('commerce_shipment', NULL, 'shipment_items');
-  if (empty($field_storage)) {
-    $field_storage = FieldStorageConfig::create([
-      'field_name' => 'shipment_items',
-      'entity_type' => 'commerce_shipment',
-      'type' => 'entity_reference',
-      'cardinality' => FieldStorageConfig::CARDINALITY_UNLIMITED,
-      'settings' => [
-        'target_type' => 'commerce_shipment_item',
-      ],
-      'locked' => TRUE,
-      'translatable' => FALSE,
-    ]);
-    $field_storage->save();
-  }
-  if (empty($field)) {
-    $field = FieldConfig::create([
-      'field_storage' => $field_storage,
-      'label' => 'Shipment items',
-      'bundle' => 'commerce_shipment',
-      'required' => TRUE,
-      'settings' => [
-        'handler' => 'default',
-        'handler_settings' => [],
-      ],
-      'translatable' => FALSE,
-    ]);
-    $field->save();
 
     //Evan you can probably use this for refernce to some stuff you might need to add for this
     /*$view_display = commerce_get_entity_display('commerce_order', $shipment->id(), 'view');
@@ -83,5 +54,5 @@ function commerce_shipping_add_shipment_item_field() {
       ],
     ]);
     $form_display->save();*/
-  }
 }
+
