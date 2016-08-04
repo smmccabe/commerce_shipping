@@ -54,6 +54,5 @@ function commerce_shipping_add_shipment_item_field() {
       ],
     ]);
     $form_display->save();*/
-  //}
 }
 
