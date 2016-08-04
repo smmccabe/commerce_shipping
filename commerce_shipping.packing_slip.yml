@@ -3,6 +3,8 @@
 first:
   id: one
   label: One
+  description: Packing Slip Description
 second:
   id: two
   label: Two
+  description: Packing Slip Description
