@@ -3,10 +3,10 @@
 first:
   id: one
   label: One
- rate: 5.00
+  rate: 5.00
  second:
-   id: two
-   label: Two
+  id: two
+  label: Two
   rate: 10.00
 third:
   id: three
