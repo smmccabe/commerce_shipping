@@ -4,6 +4,7 @@ namespace Drupal\commerce_shipping\Plugin\Commerce\CheckoutPane;
 
 use Drupal\commerce_checkout\Plugin\Commerce\CheckoutFlow\CheckoutFlowInterface;
 use Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane\CheckoutPaneBase;
+use Drupal\commerce_shipping\Entity\Shipment;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -79,27 +80,14 @@ class ShippingRates extends CheckoutPaneBase implements ContainerFactoryPluginIn
    * {@inheritdoc}
    */
   public function buildPaneSummary() {
-    $shipping_rates = $this->order->shipping_rates;
-    if (!$shipping_rates) {
-      return '';
+    $shipment = $this->order->getData()['shipment'];
+    $order_id = $this->order->getOrderNumber();
+    $rate = $shipment->getShippingRate();
+    if (!$shipment) {
+      return 'No Shipment Created.';
     }
 
-//    $payment_gateway_plugin = $payment_gateway->getPlugin();
-//    $payment_method = $this->order->payment_method->entity;
-//    if ($payment_gateway_plugin instanceof SupportsStoredPaymentMethodsInterface && $payment_method) {
-//      $view_builder = $this->entityTypeManager->getViewBuilder('commerce_shipping_method');
-//      $payment_method_view = $view_builder->view($payment_method, 'default');
-//      $summary = $this->renderer->render($payment_method_view);
-//    }
-//    else {
-//      $billing_profile = $this->order->getBillingProfile();
-//      $profile_view_builder = $this->entityTypeManager->getViewBuilder('profile');
-//      $profile_view = $profile_view_builder->view($billing_profile, 'default');
-//      $summary = $payment_gateway->getPlugin()->getDisplayLabel();
-//      $summary .= $this->renderer->render($profile_view);
-//    }
-
-    return $shipping_rates;
+    return 'Order ID: ' . $order_id . ' -- ' . 'Rate: ' . $rate;
   }
 
   /**
@@ -107,9 +95,9 @@ class ShippingRates extends CheckoutPaneBase implements ContainerFactoryPluginIn
    */
   public function buildPaneForm(array $pane_form, FormStateInterface $form_state, array &$complete_form) {
     $options = [
-      'flat_1'=>'Flat Rate: $5',
-      'flat_2'=>'Flat Rate: $10',
-      'flat_3'=>'Flat Rate: $15',
+      'flat_1' => 'Flat Rate: $5',
+      'flat_2' => 'Flat Rate: $10',
+      'flat_3' => 'Flat Rate: $15',
     ];
     $default_option = NULL;
 
@@ -147,9 +135,11 @@ class ShippingRates extends CheckoutPaneBase implements ContainerFactoryPluginIn
    */
   public function submitPaneForm(array &$pane_form, FormStateInterface $form_state, array &$complete_form) {
     $values = $form_state->getValue($pane_form['#parents']);
-
-    /** @var \Drupal\commerce_shipping\ShipmentInterface $shipment */
-    $this->order->shipping_rates = $values['shipping_rates'];
+    $rate = $values['shipping_rates'];
+    $this->order->setData(array('shipment', ''));
+    $shipment = Shipment::create();
+    $shipment->setShippingRate($rate);
+    $shipment->setName("Should see this");
+    $this->order->setData(array('shipment' => $shipment));
   }
-
 }

@@ -2,6 +2,7 @@
 
 namespace Drupal\commerce_shipping\Entity;
 
+use Drupal\commerce_shipping\Plugin\Rate\Rate;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
@@ -160,6 +161,21 @@ class Shipment extends ContentEntityBase implements ShipmentInterface {
   /**
    * {@inheritdoc}
    */
+  public function getShippingRate() {
+    return $this->get('shipping_rate')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setShippingRate($rate) {
+    $this->set('shipping_rate', $rate);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function postSave(EntityStorageInterface $storage, $update = TRUE) {
     parent::postSave($storage, $update);
 
@@ -185,12 +201,13 @@ class Shipment extends ContentEntityBase implements ShipmentInterface {
       if (empty($entity->field_shipment_items)) {
         continue;
       }
-      foreach($entity->field_shipment_items as $item) {
+      foreach ($entity->field_shipment_items as $item) {
         $shipment_items[$item->target_id] = $item->entity;
       }
     }
 
-    $shipment_item_storage = \Drupal::service('entity_type.manager')->getStorage('commerce_shipment_item');
+    $shipment_item_storage = \Drupal::service('entity_type.manager')
+      ->getStorage('commerce_shipment_item');
     $shipment_item_storage->delete($shipment_items);
   }
 
@@ -281,11 +298,31 @@ class Shipment extends ContentEntityBase implements ShipmentInterface {
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the entity was last edited.'));
 
+    $fields['shipping_rate'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Rate'))
+      ->setDescription(t('The selected rate for the shipment.'))
+      ->setSettings(array(
+        'max_length' => 50,
+        'text_processing' => 0,
+      ))
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', array(
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -4,
+      ))
+      ->setDisplayOptions('form', array(
+        'type' => 'string_textfield',
+        'weight' => -4,
+      ))
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
     return $fields;
   }
 
   public function addShipmentItem($line_item, $quantity) {
-    
+    $this->setShipmentItems($line_item);
+    return $this;
   }
 
 }
