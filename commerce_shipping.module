@@ -8,6 +8,8 @@
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
 
 /**
  * Implements hook_help().
@@ -54,5 +56,24 @@ function commerce_shipping_add_shipment_item_field() {
       ],
     ]);
     $form_display->save();*/
+}
+
+/**
+ * Implements hook_entity_base_field_info().
+ * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
+ * @return mixed
+ */
+function commerce_shipping_entity_base_field_info(EntityTypeInterface $entity_type) {
+  if ($entity_type->id() === 'commerce_order') {
+    $fields['shipment'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Shipment'))
+      ->setDescription(t('The shipment.'))
+      ->setRequired(TRUE)
+      ->setSetting('target_type', 'commerce_shipment');
+
+    return $fields;
+  }
+//  \Drupal::entityDefinitionUpdateManager()->applyUpdates();
+
 }
 

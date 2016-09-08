@@ -4,7 +4,9 @@ namespace Drupal\commerce_shipping\Plugin\Commerce\CheckoutPane;
 
 use Drupal\commerce_checkout\Plugin\Commerce\CheckoutFlow\CheckoutFlowInterface;
 use Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane\CheckoutPaneBase;
+use Drupal\commerce_price\Price;
 use Drupal\commerce_shipping\Entity\Shipment;
+use Drupal\commerce_shipping\Plugin\RateManager;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -40,6 +42,13 @@ class ShippingRates extends CheckoutPaneBase implements ContainerFactoryPluginIn
   protected $renderer;
 
   /**
+   * The payment gateway plugin manager.
+   *
+   * @var \Drupal\commerce_shipping\Plugin\RateManager
+   */
+  protected $pluginManager;
+
+  /**
    * Constructs a new BillingInformation object.
    *
    * @param array $configuration
@@ -54,12 +63,14 @@ class ShippingRates extends CheckoutPaneBase implements ContainerFactoryPluginIn
    *   The entity type manager.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer.
+   * @param \Drupal\commerce_shipping\Plugin\RateManager $plugin_manager
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, CheckoutFlowInterface $checkout_flow, EntityTypeManagerInterface $entity_type_manager, RendererInterface $renderer) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, CheckoutFlowInterface $checkout_flow, EntityTypeManagerInterface $entity_type_manager, RendererInterface $renderer, RateManager $plugin_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $checkout_flow);
 
     $this->entityTypeManager = $entity_type_manager;
     $this->renderer = $renderer;
+    $this->pluginManager = $plugin_manager;
   }
 
   /**
@@ -72,7 +83,8 @@ class ShippingRates extends CheckoutPaneBase implements ContainerFactoryPluginIn
       $plugin_definition,
       $checkout_flow,
       $container->get('entity_type.manager'),
-      $container->get('renderer')
+      $container->get('renderer'),
+      $container->get('plugin.manager.rate')
     );
   }
 
@@ -80,27 +92,29 @@ class ShippingRates extends CheckoutPaneBase implements ContainerFactoryPluginIn
    * {@inheritdoc}
    */
   public function buildPaneSummary() {
-    $shipment = $this->order->getData()['shipment'];
-    $order_id = $this->order->getOrderNumber();
+    /** @var \Drupal\commerce_shipping\Entity\Shipment $shipment */
+    $shipment = $this->order->shipment->entity;
     $rate = $shipment->getShippingRate();
-    if (!$shipment) {
+    $method = $shipment->getShippingRateMethod();
+    if (empty($rate) || empty($method)) {
       return 'No Shipment Created.';
     }
 
-    return 'Order ID: ' . $order_id . ' -- ' . 'Rate: ' . $rate;
+    return $method . ': ' . $rate->__toString();
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildPaneForm(array $pane_form, FormStateInterface $form_state, array &$complete_form) {
-    $options = [
-      'flat_1' => 'Flat Rate: $5',
-      'flat_2' => 'Flat Rate: $10',
-      'flat_3' => 'Flat Rate: $15',
-    ];
-    $default_option = NULL;
+    $definitions = $this->pluginManager->getDefinitions();
 
+    foreach ($definitions as $method => $rate) {
+      $price = new Price($rate['rate']['amount'], $rate['rate']['currency_code']);
+      $options[$rate['id']] = $rate['label'] . ': ' . $price->__toString();
+    }
+
+    $default_option = key($options);
 
     // Prepare the form for ajax.
     $pane_form['#wrapper_id'] = Html::getUniqueId('shipping-rates-wrapper');
@@ -111,7 +125,8 @@ class ShippingRates extends CheckoutPaneBase implements ContainerFactoryPluginIn
       '#type' => 'radios',
       '#title' => $this->t('Rates: '),
       '#options' => $options,
-      '#default_value' => $options['test'],
+      '#default_value' => $default_option,
+      '#required' => TRUE,
       '#ajax' => [
         'callback' => [get_class($this), 'ajaxRefresh'],
         'wrapper' => $pane_form['#wrapper_id'],
@@ -134,12 +149,17 @@ class ShippingRates extends CheckoutPaneBase implements ContainerFactoryPluginIn
    * {@inheritdoc}
    */
   public function submitPaneForm(array &$pane_form, FormStateInterface $form_state, array &$complete_form) {
-    $values = $form_state->getValue($pane_form['#parents']);
-    $rate = $values['shipping_rates'];
-    $this->order->setData(array('shipment', ''));
-    $shipment = Shipment::create();
-    $shipment->setShippingRate($rate);
-    $shipment->setName("Should see this");
-    $this->order->setData(array('shipment' => $shipment));
+    $selected_rate = $form_state->getValue($pane_form['#parents'])['shipping_rates'];
+    $shipping_definitions = $this->pluginManager->getDefinitions();
+    $label = $shipping_definitions[$selected_rate]['label'];
+    $rate = $shipping_definitions[$selected_rate]['rate'];
+    $price = new Price($rate['amount'], $rate['currency_code']);
+    /** @var \Drupal\commerce_shipping\Entity\Shipment $shipment */
+    $shipment = $this->order->shipment->entity;
+    $shipment->setShippingRateMethod($label);
+    $shipment->setShippingRate($price);
+    $shipment->save();
+    $this->order->shipment = $shipment;
+    $this->order->save();
   }
 }
