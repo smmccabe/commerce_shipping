@@ -169,21 +169,6 @@ class Shipment extends ContentEntityBase implements ShipmentInterface {
   /**
    * {@inheritdoc}
    */
-  public function getShippingRateCarrier() {
-    return $this->get('shipping_carrier')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setShippingRateCarrier($rate) {
-    $this->set('shipping_carrier', $rate);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getShippingRateMethod() {
     return $this->get('shipping_method')->value;
   }
