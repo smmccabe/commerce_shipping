@@ -11,3 +11,9 @@ services:
   plugin.manager.rate:
     class: Drupal\commerce_shipping\Plugin\RateManager
     arguments: ['@module_handler', '@cache.discovery']
+
+  commerce_shipping.shipment_listener:
+    class: Drupal\commerce_shipping\EventSubscriber\ShipmentListener
+    arguments: []
+    tags:
+      - { name: event_subscriber }

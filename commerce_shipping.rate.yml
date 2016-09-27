@@ -1,14 +1,19 @@
 # Example rate_base_plugin plugin definitions.
-# Plugin property $defaults are defined in RateBasePluginManager.
-first:
-  id: one
-  label: One
-  rate: 5.00
-second:
-  id: two
-  label: Two
-  rate: 10.00
-third:
-  id: three
-  label: Three
-  rate: 15.00
+flat_0:
+  id: flat_0
+  label: Flat Rate 0
+  rate:
+    amount: 5
+    currency_code: USD
+flat_1:
+  id: flat_1
+  label: Flat Rate 1
+  rate:
+    amount: 10
+    currency_code: USD
+flat_2:
+  id: flat_2
+  label: Flat Rate 2
+  rate:
+    amount: 15
+    currency_code: USD
