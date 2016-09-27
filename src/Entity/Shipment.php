@@ -185,9 +185,13 @@ class Shipment extends ContentEntityBase implements ShipmentInterface {
    * {@inheritdoc}
    */
   public function getShippingRate() {
-    return new Price(
-      $this->get('shipping_rate')->amount,
-      $this->get('shipping_rate')->currency_code);
+    if ($this->get('shipping_rate')->amount) {
+      return new Price(
+        $this->get('shipping_rate')->amount,
+        $this->get('shipping_rate')->currency_code);
+    }
+
+    return FALSE;
   }
 
   /**
@@ -322,26 +326,6 @@ class Shipment extends ContentEntityBase implements ShipmentInterface {
     $fields['changed'] = BaseFieldDefinition::create('changed')
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the entity was last edited.'));
-
-    $fields['shipping_carrier'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Shipping Carrier'))
-      ->setDescription(t('The selected rate for the shipment.'))
-      ->setSettings(array(
-        'max_length' => 50,
-        'text_processing' => 0,
-      ))
-      ->setDefaultValue('')
-      ->setDisplayOptions('view', array(
-        'label' => 'above',
-        'type' => 'string',
-        'weight' => -4,
-      ))
-      ->setDisplayOptions('form', array(
-        'type' => 'string_textfield',
-        'weight' => -4,
-      ))
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
 
     $fields['shipping_method'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Rate'))
