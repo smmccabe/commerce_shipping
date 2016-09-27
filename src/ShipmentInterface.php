@@ -30,6 +30,17 @@ interface ShipmentInterface extends ContentEntityInterface, EntityChangedInterfa
   public function getOrderId();
 
   /**
+   * Sets the Shipment Order.
+   *
+   * @param $order_id
+   *   The Order's ID
+   *
+   * @return \Drupal\commerce_shipping\ShipmentInterface The called Shipment entity.
+   * The called Shipment entity.
+   */
+  public function setOrderId($order_id);
+
+  /**
    * Gets the Shipment name.
    *
    * @return string
@@ -69,11 +80,11 @@ interface ShipmentInterface extends ContentEntityInterface, EntityChangedInterfa
 
   /**
    * adds a shipment item based on a line item
-   * 
+   *
    * @param \Drupal\commerce_order\Entity\LineItemInterface $line_item
-   * 
+   *
    * @param int $quantity
-   * 
+   *
    * @return \Drupal\commerce_shipping\ShipmentInterface
    *   The called Shipment entity.
    */
