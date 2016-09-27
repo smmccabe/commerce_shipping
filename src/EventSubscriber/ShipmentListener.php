@@ -36,15 +36,16 @@ class ShipmentListener implements EventSubscriberInterface {
       }
 
       /** @var \Drupal\commerce_shipping\Entity\Shipment $shipment */
-      $shipment = $order->shipment->entity;
-      $rate = $shipment->getShippingRate();
-      $method = $shipment->getShippingRateMethod();
-      if (!empty($rate) && !empty($method)) {
-        $order->addAdjustment(new Adjustment([
-          'type' => 'shipment',
-          'label' => $method,
-          'amount' => $rate,
-        ]));
+      if ($shipment = $order->shipment->entity) {
+        $rate = $shipment->getShippingRate();
+        $method = $shipment->getShippingRateMethod();
+        if (!empty($rate) && !empty($method)) {
+          $order->addAdjustment(new Adjustment([
+            'type' => 'shipment',
+            'label' => $method,
+            'amount' => $rate,
+          ]));
+        }
       }
     }
   }
